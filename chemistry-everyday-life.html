@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chemistry in Everyday Life — Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --surface2: #1e2334;
+    --border: #2a3050;
+    --accent: #e8c97d;
+    --accent2: #7eb8f7;
+    --accent3: #a78bfa;
+    --accent4: #6ee7b7;
+    --accent5: #f87171;
+    --text: #e8eaf0;
+    --muted: #8b91a8;
+    --pill-bg: rgba(232,201,125,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,17,23,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 60px;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  .nav-tabs { display: flex; gap: 0.25rem; }
+  .nav-tab {
+    padding: 0.4rem 1.2rem;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-size: 0.875rem; font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+    background: transparent; color: var(--muted);
+  }
+  .nav-tab.active {
+    background: var(--pill-bg);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .nav-tab:hover:not(.active) { color: var(--text); background: var(--surface); }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 4rem 2rem 2rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(126,184,247,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-label {
+    display: inline-block;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent2);
+    border: 1px solid rgba(126,184,247,0.3);
+    padding: 0.25rem 0.75rem; border-radius: 100px;
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900; line-height: 1.15;
+    color: var(--text); margin-bottom: 0.75rem;
+  }
+  .hero h1 span { color: var(--accent); font-style: italic; }
+  .hero p { color: var(--muted); max-width: 540px; margin: 0 auto 2rem; }
+
+  /* ── SECTION ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── CHAPTER NAV ── */
+  .chapter-nav {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    padding: 1rem 2rem 0;
+    justify-content: center;
+  }
+  .ch-btn {
+    padding: 0.35rem 1rem;
+    border-radius: 100px;
+    font-size: 0.8rem; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+    border: 1px solid var(--border);
+    background: var(--surface); color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .ch-btn:hover, .ch-btn.active {
+    border-color: currentColor;
+    color: var(--accent); background: var(--pill-bg);
+  }
+
+  /* ── CONTENT AREA ── */
+  .content-area { padding: 2rem; max-width: 900px; margin: 0 auto; }
+
+  /* ── TOPIC SECTION ── */
+  .topic { display: none; animation: fadeIn 0.3s ease; }
+  .topic.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .topic-header {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.5rem; padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .topic-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; flex-shrink: 0;
+  }
+  .topic-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700;
+  }
+  .topic-header .tag {
+    margin-left: auto; font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.2rem 0.6rem; border-radius: 4px;
+    background: var(--pill-bg); color: var(--accent);
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: rgba(232,201,125,0.3); }
+  .card h3 {
+    font-size: 0.95rem; font-weight: 600;
+    margin-bottom: 0.5rem; color: var(--accent);
+  }
+  .card p, .card li { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li { padding: 0.2rem 0 0.2rem 1.2rem; position: relative; }
+  .card ul li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; top: 0.3rem; }
+
+  /* ── INFO GRID ── */
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight {
+    border-left: 3px solid var(--accent2);
+    background: rgba(126,184,247,0.06);
+    border-radius: 0 8px 8px 0;
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 1rem;
+    font-size: 0.88rem; color: var(--muted);
+  }
+  .highlight strong { color: var(--accent2); }
+  .highlight.green { border-color: var(--accent4); background: rgba(110,231,183,0.06); }
+  .highlight.green strong { color: var(--accent4); }
+  .highlight.purple { border-color: var(--accent3); background: rgba(167,139,250,0.06); }
+  .highlight.purple strong { color: var(--accent3); }
+  .highlight.red { border-color: var(--accent5); background: rgba(248,113,113,0.06); }
+  .highlight.red strong { color: var(--accent5); }
+  .highlight.gold { border-color: var(--accent); background: rgba(232,201,125,0.06); }
+  .highlight.gold strong { color: var(--accent); }
+
+  /* ── TABLE ── */
+  .styled-table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.87rem; }
+  .styled-table th {
+    background: var(--surface2); color: var(--accent);
+    padding: 0.65rem 1rem; text-align: left; font-weight: 600;
+    border-bottom: 2px solid var(--border);
+  }
+  .styled-table td { padding: 0.6rem 1rem; border-bottom: 1px solid var(--border); color: var(--muted); }
+  .styled-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* ── PILL TAGS ── */
+  .pill { display: inline-block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em;
+    padding: 0.15rem 0.6rem; border-radius: 100px; margin: 0.1rem; }
+  .pill-gold { background: rgba(232,201,125,0.15); color: var(--accent); }
+  .pill-blue { background: rgba(126,184,247,0.15); color: var(--accent2); }
+  .pill-purple { background: rgba(167,139,250,0.15); color: var(--accent3); }
+  .pill-green { background: rgba(110,231,183,0.15); color: var(--accent4); }
+  .pill-red { background: rgba(248,113,113,0.15); color: var(--accent5); }
+
+  /* ── DRUG CARDS ── */
+  .drug-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.75rem; margin-bottom: 1rem; }
+  .drug-card {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1rem;
+    transition: all 0.2s;
+  }
+  .drug-card:hover { transform: translateY(-2px); border-color: rgba(232,201,125,0.4); }
+  .drug-card .drug-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem; color: var(--text); }
+  .drug-card .drug-trade { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.5rem; font-style: italic; }
+  .drug-card .drug-note { font-size: 0.8rem; color: var(--muted); }
+
+  /* ── SECTION TITLE ── */
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 700;
+    color: var(--text); margin: 1.5rem 0 0.75rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .sec-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .flow-step {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0.5rem 0.9rem;
+    font-size: 0.82rem; font-weight: 500; color: var(--text);
+  }
+  .flow-arrow { color: var(--muted); font-size: 1rem; }
+
+  /* ── FLASHCARD SECTION ── */
+  .fc-chapter-nav {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    padding: 1rem 2rem 0;
+    justify-content: center;
+  }
+  .fc-topic { display: none; }
+  .fc-topic.active { display: block; }
+
+  .flashcards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  .fc-card {
+    perspective: 1000px;
+    height: 180px;
+    cursor: pointer;
+  }
+  .fc-inner {
+    position: relative; width: 100%; height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+    border-radius: 14px;
+  }
+  .fc-card.flipped .fc-inner { transform: rotateY(180deg); }
+
+  .fc-front, .fc-back {
+    position: absolute; inset: 0;
+    border-radius: 14px;
+    backface-visibility: hidden;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    padding: 1.25rem; text-align: center;
+  }
+  .fc-front {
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .fc-back {
+    background: var(--surface2);
+    border: 1px solid rgba(232,201,125,0.4);
+    transform: rotateY(180deg);
+  }
+  .fc-front .fc-q {
+    font-size: 0.9rem; font-weight: 600;
+    color: var(--text); line-height: 1.4;
+  }
+  .fc-front .fc-hint {
+    margin-top: 0.75rem; font-size: 0.72rem;
+    color: var(--muted);
+  }
+  .fc-back .fc-a {
+    font-size: 0.85rem; color: var(--muted); line-height: 1.5;
+  }
+  .fc-back .fc-a strong { color: var(--accent); }
+  .fc-cat {
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 0.75rem;
+  }
+
+  .fc-controls { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: 0.75rem; }
+  .fc-count { font-size: 0.8rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+  .btn { padding: 0.4rem 1.2rem; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--surface); color: var(--text); cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500;
+    transition: all 0.2s; }
+  .btn:hover { border-color: var(--accent); color: var(--accent); background: var(--pill-bg); }
+  .btn-primary { background: var(--accent); color: #0f1117; border-color: var(--accent); font-weight: 600; }
+  .btn-primary:hover { background: #d4b56a; color: #0f1117; border-color: #d4b56a; }
+
+  /* ── SWEETENER GRID ── */
+  .sweet-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.75rem; }
+  .sweet-card {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1rem; text-align: center;
+  }
+  .sweet-name { font-weight: 700; font-size: 0.95rem; color: var(--accent); margin-bottom: 0.4rem; }
+  .sweet-val { font-size: 1.5rem; font-family: 'DM Mono', monospace; font-weight: 700; color: var(--text); }
+  .sweet-label { font-size: 0.72rem; color: var(--muted); }
+  .sweet-note { font-size: 0.78rem; color: var(--muted); margin-top: 0.4rem; }
+
+  /* ── SOAP DIAGRAM ── */
+  .soap-molecule {
+    display: flex; align-items: center; gap: 0;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden; margin-bottom: 1rem;
+  }
+  .soap-tail { background: rgba(248,113,113,0.15); color: var(--accent5);
+    padding: 1rem; font-size: 0.8rem; font-weight: 600; flex: 1; text-align: center; }
+  .soap-head { background: rgba(126,184,247,0.15); color: var(--accent2);
+    padding: 1rem; font-size: 0.8rem; font-weight: 600; flex: 1; text-align: center; }
+  .soap-div { width: 3px; background: var(--border); align-self: stretch; }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .compare-box { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; }
+  .compare-box h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .compare-box ul { list-style: none; }
+  .compare-box ul li { font-size: 0.82rem; color: var(--muted); padding: 0.2rem 0 0.2rem 1.1rem; position: relative; }
+  .compare-box ul li::before { content: '•'; position: absolute; left: 0; }
+
+  footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.78rem; border-top: 1px solid var(--border); margin-top: 2rem; }
+
+  @media (max-width: 600px) {
+    .compare-grid { grid-template-columns: 1fr; }
+    nav { padding: 0 1rem; }
+    .content-area { padding: 1rem; }
+    .flashcards-grid { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">⚗ ChemLife</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="switchPage('learn')">📖 Learn</button>
+    <button class="nav-tab" onclick="switchPage('flash')">🃏 Flashcards</button>
+  </div>
+</nav>
+
+<!-- ═══════════════ LEARN PAGE ═══════════════ -->
+<div id="learn" class="page active">
+  <div class="hero">
+    <div class="hero-label">Class 12 · Unit 16</div>
+    <h1>Chemistry in <span>Everyday Life</span></h1>
+    <p>Structured notes covering drug-target interaction, therapeutics, food chemistry, and cleansing agents — exactly as per syllabus.</p>
+  </div>
+
+  <div class="chapter-nav">
+    <button class="ch-btn active" onclick="showTopic('drug-target')">Drug-Target Interaction</button>
+    <button class="ch-btn" onclick="showTopic('antacids')">Antacids</button>
+    <button class="ch-btn" onclick="showTopic('antihistamines')">Antihistamines</button>
+    <button class="ch-btn" onclick="showTopic('tranquilizers')">Tranquilizers</button>
+    <button class="ch-btn" onclick="showTopic('analgesics')">Analgesics</button>
+    <button class="ch-btn" onclick="showTopic('antimicrobials')">Antimicrobials</button>
+    <button class="ch-btn" onclick="showTopic('antifertility')">Antifertility Drugs</button>
+    <button class="ch-btn" onclick="showTopic('sweeteners')">Artificial Sweeteners</button>
+    <button class="ch-btn" onclick="showTopic('cleansing')">Soaps & Detergents</button>
+  </div>
+
+  <div class="content-area">
+
+    <!-- ── DRUG-TARGET INTERACTION ── -->
+    <div id="drug-target" class="topic active">
+      <div class="topic-header">
+        <div class="topic-icon" style="background:rgba(232,201,125,0.15)">🎯</div>
+        <div>
+          <h2>Drug-Target Interaction</h2>
+          <p style="color:var(--muted);font-size:0.82rem">How drugs work at the molecular level</p>
+        </div>
+        <div class="tag">Section 16.2</div>
+      </div>
+
+      <div class="highlight gold">
+        <strong>Drug:</strong> Low molecular mass chemical (~100–500 u) that interacts with macromolecular targets to produce a biological response. When therapeutic → called a <strong>medicine</strong>. Use of chemicals for therapeutic effect = <strong>chemotherapy</strong>.
+      </div>
+
+      <div class="sec-title">Drug Targets</div>
+      <div class="info-grid">
+        <div class="card">
+          <h3>🧬 Enzymes</h3>
+          <ul>
+            <li>Biological catalysts (proteins)</li>
+            <li>Hold substrate at <strong>active site</strong> via ionic bonds, H-bonds, van der Waals, dipole-dipole</li>
+            <li>Provide functional groups to react with substrate</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>📡 Receptors</h3>
+          <ul>
+            <li>Proteins embedded in cell membrane</li>
+            <li>Active site projects outside the cell</li>
+            <li>Receive chemical messengers (neurotransmitters)</li>
+            <li>Change shape on binding → transfer message into cell</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>🔬 Other Targets</h3>
+          <ul>
+            <li>Carrier proteins (transport polar molecules across membrane)</li>
+            <li>Nucleic acids (genetic information)</li>
+            <li>Lipids & carbohydrates (structural parts of cell membrane)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sec-title">Enzyme Inhibition</div>
+      <div class="info-grid">
+        <div class="card">
+          <h3>⚔️ Competitive Inhibition</h3>
+          <p>Drug competes with the natural substrate for the <strong>active site</strong>. The drug and substrate have similar shapes. Drug blocks the substrate from binding.</p>
+        </div>
+        <div class="card">
+          <h3>🔒 Non-Competitive Inhibition</h3>
+          <p>Drug binds to a different site — the <strong>allosteric site</strong>. This changes the shape of the active site so the substrate can no longer fit.</p>
+        </div>
+        <div class="card">
+          <h3>⛓️ Irreversible Inhibition</h3>
+          <p>Drug forms a <strong>strong covalent bond</strong> with the enzyme → enzyme permanently blocked. Body degrades the complex and synthesises new enzyme.</p>
+        </div>
+      </div>
+
+      <div class="sec-title">Receptor Interaction</div>
+      <div class="compare-grid">
+        <div class="compare-box" style="border-color:rgba(248,113,113,0.4)">
+          <h4 style="color:var(--accent5)">🚫 Antagonists</h4>
+          <ul>
+            <li>Bind to receptor site</li>
+            <li>Inhibit natural function</li>
+            <li>Block the message</li>
+            <li>Useful when blocking is needed (e.g., antihistamines)</li>
+          </ul>
+        </div>
+        <div class="compare-box" style="border-color:rgba(110,231,183,0.4)">
+          <h4 style="color:var(--accent4)">✅ Agonists</h4>
+          <ul>
+            <li>Mimic the natural messenger</li>
+            <li>Switch ON the receptor</li>
+            <li>Stimulate natural response</li>
+            <li>Useful when messenger is lacking</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sec-title">Classification of Drugs</div>
+      <table class="styled-table">
+        <tr><th>Basis</th><th>Description</th><th>Example</th></tr>
+        <tr><td>Pharmacological effect</td><td>Based on what the drug does to the body</td><td>Analgesics (pain relief), Antiseptics</td></tr>
+        <tr><td>Drug action</td><td>Based on biochemical process affected</td><td>Antihistamines block histamine action</td></tr>
+        <tr><td>Chemical structure</td><td>Common structural features → similar activity</td><td>Sulphonamides</td></tr>
+        <tr><td>Molecular targets</td><td>Most useful for medicinal chemists</td><td>Enzyme inhibitors, Receptor antagonists</td></tr>
+      </table>
+    </div>
+
+    <!-- ── ANTACIDS ── -->
+    <div id="antacids" class="topic">
+      <div class="topic-header">
+        <div class="topic-icon" style="background:rgba(126,184,247,0.15)">🧪</div>
+        <div>
+          <h2>Antacids</h2>
+          <p style="color:var(--muted);font-size:0.82rem">Treating hyperacidity and gastric ulcers</p>
+        </div>
+        <div class="tag">Section 16.3.1</div>
+      </div>
+
+      <div class="highlight">
+        <strong>Problem:</strong> Overproduction of acid in stomach → irritation, pain, ulcers. Histamine stimulates secretion of pepsin and HCl in the stomach wall.
+      </div>
+
+      <div class="sec-title">Traditional Antacids (Control Symptoms Only)</div>
+      <div class="info-grid">
+        <div class="card">
+          <h3>NaHCO₃ — Sodium Hydrogencarbonate</h3>
+          <p>Neutralises acid but excessive use makes stomach alkaline, triggering <em>more</em> acid production. ❌ Not ideal.</p>
+        </div>
+        <div class="card">
+          <h3>Al(OH)₃ / Mg(OH)₂ — Metal Hydroxides</h3>
+          <p>Better — insoluble, so pH doesn't rise above neutrality. Still only treat <strong>symptoms</strong>, not the cause.</p>
+        </div>
+      </div>
+
+      <div class="sec-title">Modern Antacids (Treat the Cause)</div>
+      <div class="highlight green">
+        <strong>Mechanism:</strong> Block histamine receptors in stomach wall → less histamine binding → reduced acid secretion. These are <strong>receptor antagonists</strong>.
+      </div>
+      <div class="drug-grid">
+        <div class="drug-card">
+          <div class="drug-name">Cimetidine</div>
+          <div class="drug-trade">Trade: Tegamet</div>
+          <div class="drug-note">First breakthrough drug. Prevents histamine from interacting with stomach wall receptors. Was the world's largest-selling drug for a time.</div>
+        </div>
+        <div class="drug-card">
+          <div class="drug-name">Ranitidine</div>
+          <div class="drug-trade">Trade: Zantac</div>
+          <div class="drug-note">Discovered after cimetidine; became even more successful.</div>
+        </div>
+      </div>
+
+      <div class="highlight purple">
+        <strong>Why don't antacids affect allergy?</strong> Antiallergic and antacid drugs work on <strong>different receptors</strong> — histamine has multiple receptor subtypes in different locations.
+      </div>
+    </div>
+
+    <!-- ── ANTIHISTAMINES ── -->
+    <div id="antihistamines" class="topic">
+      <div class="topic-header">
+        <div class="topic-icon" style="background:rgba(167,139,250,0.15)">🤧</div>
+        <div>
+          <h2>Antihistamines</h2>
+          <p style="color:var(--muted);font-size:0.82rem">Blocking histamine's allergic effects</p>
+        </div>
+        <div class="tag">Section 16.3.2</div>
+      </div>
+
+      <div class="highlight purple">
+        <strong>Histamine's roles:</strong> Potent vasodilator · contracts smooth muscles of bronchi and gut · relaxes walls of fine blood vessels · causes nasal congestion in cold · triggers allergic response to pollen.
+      </div>
+
+      <div class="sec-title">How Antihistamines Work</div>
+      <div class="card">
+        <h3>Mechanism — Competitive Antagonism</h3>
+        <p>Antihistamines <strong>compete with histamine</strong> for the same receptor binding sites where histamine exerts its allergic effect. They do not destroy histamine — they simply block the receptor, preventing histamine from docking.</p>
+      </div>
+
+      <div class="sec-title">Key Antihistamine Drugs</div>
+      <div class="drug-grid">
+        <div class="drug-card">
+          <div class="drug-name">Brompheniramine</div>
+          <div class="drug-trade">Dimetapp / Dimetane</div>
+          <div class="drug-note">Synthetic antihistamine used for allergies and cold symptoms.</div>
+        </div>
+        <div class="drug-card">
+          <div class="drug-name">Terfenadine</div>
+          <div class="drug-trade">Seldane</div>
+          <div class="drug-note">Synthetic antihistamine; acts on histamine receptors in allergic response.</div>
+        </div>
+      </div>
+
+      <div class="highlight">
+        <strong>Key distinction:</strong> Antiallergic antihistamines work on <strong>H₁ receptors</strong> (allergy/nasal), while antacid drugs (like cimetidine) block <strong>H₂ receptors</strong> (stomach acid). This is why they don't interfere with each other.
+      </div>
+    </div>
+
+    <!-- ── TRANQUILIZERS ── -->
+    <div id="tranquilizers" class="topic">
+      <div class="topic-header">
+        <div class="topic-icon" style="background:rgba(110,231,183,0.15)">🧠</div>
+        <div>
+          <h2>Tranquilizers</h2>
+          <p style="color:var(--muted);font-size:0.82rem">Neurologically active drugs for stress and mental health</p>
+        </div>
+        <div class="tag">Section 16.3.3(a)</div>
+      </div>
+
+      <div class="highlight green">
+        <strong>Tranquilizers</strong> are chemical compounds used to treat stress and mental diseases. They relieve anxiety, stress, irritability, and excitement by inducing a sense of well-being. Form an essential component of sleeping pills. They affect the <strong>message transfer mechanism from nerve to receptor</strong>.
+      </div>
+
+      <div class="sec-title">Mechanism — Depression & Noradrenaline</div>
+      <div class="card">
+        <h3>🔑 Role of Noradrenaline</h3>
+        <p>Noradrenaline is a neurotransmitter that plays a role in <strong>mood changes</strong>. Low noradrenaline → low signal-sending activity → <strong>depression</strong>.</p>
+      </div>
+      <div class="card" style="margin-top:0">
+        <h3>💊 Antidepressant Mechanism</h3>
+        <p>Antidepressants <strong>inhibit enzymes</strong> that catalyse the degradation of noradrenaline. The neurotransmitter is slowly metabolised → activates its receptor for longer → counteracts depression.</p>
+      </div>
+
+      <div class="sec-title">Types & Examples</div>
+      <table class="styled-table">
+        <tr><th>Drug</th><th>Type / Use</th></tr>
+        <tr><td><span class="pill pill-gold">Iproniazid</span></td><td>Antidepressant — inhibits enzyme degrading noradrenaline</td></tr>
+        <tr><td><span class="pill pill-gold">Phenelzine (Nardil)</span></td><td>Antidepressant — same mechanism as iproniazid</td></tr>
+        <tr><td><span class="pill pill-blue">Chlordiazepoxide</span></td><td>Mild tranquilizer — relieves tension</td></tr>
+        <tr><td><span class="pill pill-blue">Meprobamate</span></td><td>Mild tranquilizer — relieves tension</td></tr>
+        <tr><td><span class="pill pill-purple">Equanil</span></td><td>Controls depression and hypertension</td></tr>
+        <tr><td><span class="pill pill-green">Barbiturates</span><br><small style="color:var(--muted)">Veronal, Amytal, Nembutal, Luminal, Seconal</small></td><td>Hypnotic (sleep-producing) agents — derivatives of barbituric acid</td></tr>
+        <tr><td><span class="pill pill-red">Valium</span></td><td>Tranquilizer (benzodiazepine class)</td></tr>
+        <tr><td><span class="pill pill-red">Serotonin</span></td><td>Natural neurotransmitter used as tranquilizing substance</td></tr>
+      </table>
+
+      <div class="highlight red">
+        <strong>⚠ Warning:</strong> Sleeping pills must only be taken under medical supervision. Most drugs taken in doses higher than recommended act as poisons.
+      </div>
+    </div>
+
+    <!-- ── ANALGESICS ── -->
+    <div id="analgesics" class="topic">
+      <div class="topic-header">
+        <div class="topic-icon" style="background:rgba(248,113,113,0.15)">💊</div>
+        <div>
+          <h2>Analgesics</h2>
+          <p style="color:var(--muted);font-size:0.82rem">Pain-relieving drugs</p>
+        </div>
+        <div class="tag">Section 16.3.3(b)</div>
+      </div>
+
+      <div class="highlight red">
+        <strong>Analgesics</strong> reduce or abolish pain <em>without</em> causing impairment of consciousness, mental confusion, incoordination, or paralysis.
+      </div>
+
+      <div class="sec-title">Type 1 — Non-Narcotic (Non-Addictive) Analgesics</div>
+      <div class="info-grid">
+        <div class="drug-card">
+          <div class="drug-name">Aspirin</div>
+          <div class="drug-trade">Most familiar example</div>
+          <div class="drug-note">
+            <strong>Mechanism:</strong> Inhibits synthesis of <strong>prostaglandins</strong> (which stimulate inflammation and pain).<br>
+            <strong>Uses:</strong> Skeletal pain (arthritis), fever reduction (antipyretic), prevents platelet coagulation → used in <strong>heart attack prevention</strong>.
+          </div>
+        </div>
+        <div class="drug-card">
+          <div class="drug-name">Paracetamol</div>
+          <div class="drug-trade">Non-narcotic analgesic</div>
+          <div class="drug-note">Widely used pain and fever reliever. Non-addictive.</div>
+        </div>
+      </div>
+
+      <div class="sec-title">Type 2 — Narcotic (Addictive) Analgesics</div>
+      <div class="highlight">
+        <strong>Narcotic analgesics</strong> (opiates) are obtained from the opium poppy. In medicinal doses: relieve pain, produce sleep. In poisonous doses: stupor, coma, convulsions, death.
+      </div>
+
+      <div class="info-grid">
+        <div class="drug-card">
+          <div class="drug-name">Morphine</div>
+          <div class="drug-note">Parent compound. Used for postoperative pain, cardiac pain, terminal cancer pain, childbirth.</div>
+        </div>
+        <div class="drug-card">
+          <div class="drug-name">Heroin</div>
+          <div class="drug-note">Diacetyl morphine — homologue of morphine. Highly addictive.</div>
+        </div>
+        <div class="drug-card">
+          <div class="drug-name">Codeine</div>
+          <div class="drug-note">Methylmorphine. Used in cough syrups and mild pain relief.</div>
+        </div>
+      </div>
+
+      <div class="highlight red">
+        <strong>Uses of narcotic analgesics:</strong> Relief of postoperative pain · cardiac pain · pains of terminal cancer · childbirth.
+      </div>
+    </div>
+
+    <!-- ── ANTIMICROBIALS ── -->
+    <div id="antimicrobials" class="topic">
+      <div class="topic-header">
+        <div class="topic-icon" style="background:rgba(126,184,247,0.15)">🦠</div>
+        <div>
+          <h2>Antimicrobials</h2>
+          <p style="color:var(--muted);font-size:0.82rem">Antibiotics, antiseptics, and disinfectants</p>
+        </div>
+        <div class="tag">Section 16.3.4</div>
+      </div>
+
+      <div class="highlight">
+        <strong>Antimicrobial:</strong> Tends to destroy/prevent development or inhibit pathogenic action of microbes — bacteria, fungi, viruses, parasites — <em>selectively</em>.
+      </div>
+
+      <div class="sec-title">A. Antibiotics</div>
+      <div class="card">
+        <h3>Definition (Modern)</h3>
+        <p>A substance produced wholly or partly by chemical synthesis that, in <strong>low concentrations</strong>, inhibits the growth of or destroys microorganisms by <strong>intervening in their metabolic processes</strong>. Low toxicity to humans.</p>
+      </div>
+
+      <div class="sec-title">Historical Timeline</div>
+      <div class="flow">
+        <div class="flow-step">Paul Ehrlich (1908)<br><small>Arsphenamine (Salvarsan)<br>for syphilis — Nobel Prize</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">1932<br><small>Prontosil (first antibacterial) → metabolised to Sulphanilamide → sulpha drugs</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Alexander Fleming (1929)<br><small>Penicillium fungus → Penicillin</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Florey & Fleming (1945)<br><small>Nobel Prize — Penicillin development</small></div>
+      </div>
+
+      <div class="sec-title">Effect Types</div>
+      <div class="compare-grid">
+        <div class="compare-box" style="border-color:rgba(248,113,113,0.4)">
+          <h4 style="color:var(--accent5)">⚔️ Bactericidal (Killing)</h4>
+          <ul>
+            <li>Penicillin</li>
+            <li>Aminoglycosides</li>
+            <li>Ofloxacin</li>
+          </ul>
+        </div>
+        <div class="compare-box" style="border-color:rgba(126,184,247,0.4)">
+          <h4 style="color:var(--accent2)">🛑 Bacteriostatic (Inhibitory)</h4>
+          <ul>
+            <li>Erythromycin</li>
+            <li>Tetracycline</li>
+            <li>Chloramphenicol</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sec-title">Spectrum of Action</div>
+      <table class="styled-table">
+        <tr><th>Type</th><th>Description</th><th>Examples</th></tr>
+        <tr><td><span class="pill pill-gold">Broad Spectrum</span></td><td>Kills/inhibits wide range of Gram +ve and Gram –ve bacteria</td><td>Ampicillin, Amoxycillin, Chloramphenicol, Vancomycin, Ofloxacin</td></tr>
+        <tr><td><span class="pill pill-blue">Narrow Spectrum</span></td><td>Effective mainly against Gram +ve or Gram –ve only</td><td>Penicillin G</td></tr>
+        <tr><td><span class="pill pill-purple">Limited Spectrum</span></td><td>Effective against single organism/disease</td><td>—</td></tr>
+      </table>
+
+      <div class="highlight">
+        <strong>Chloramphenicol</strong> (isolated 1947): Broad spectrum. Rapidly absorbed from GI tract → given orally for typhoid, dysentery, acute fever, urinary infections, meningitis, pneumonia.
+      </div>
+      <div class="highlight green">
+        <strong>Dysidazirine:</strong> Antibiotic toxic towards certain cancer cell strains.
+      </div>
+      <div class="highlight gold">
+        <strong>India note:</strong> Penicillin is manufactured at Hindustan Antibiotics, Pimpri.
+      </div>
+
+      <div class="sec-title">B. Antiseptics vs Disinfectants</div>
+      <div class="compare-grid">
+        <div class="compare-box" style="border-color:rgba(110,231,183,0.4)">
+          <h4 style="color:var(--accent4)">🩹 Antiseptics</h4>
+          <ul>
+            <li>Applied to <strong>living tissues</strong> (wounds, cuts, ulcers)</li>
+            <li>Not ingested like antibiotics</li>
+            <li>Dettol = chloroxylenol + terpineol</li>
+            <li>Bithionol — added to soaps</li>
+            <li>Iodine (tincture) — 2–3% in alcohol-water</li>
+            <li>Iodoform — for wounds</li>
+            <li>Boric acid (dilute) — for eyes</li>
+            <li>Furacine, Soframicine</li>
+            <li>0.2% phenol solution</li>
+          </ul>
+        </div>
+        <div class="compare-box" style="border-color:rgba(248,113,113,0.4)">
+          <h4 style="color:var(--accent5)">🏠 Disinfectants</h4>
+          <ul>
+            <li>Applied to <strong>inanimate objects</strong> (floors, drains, instruments)</li>
+            <li>Chlorine: 0.2–0.4 ppm in water</li>
+            <li>Sulphur dioxide: very low concentrations</li>
+            <li>1% phenol solution</li>
+          </ul>
+        </div>
+      </div>
+      <div class="highlight purple">
+        <strong>Dual action:</strong> Same substance can act as antiseptic <em>or</em> disinfectant by varying concentration. E.g., <strong>0.2% phenol = antiseptic</strong>, <strong>1% phenol = disinfectant</strong>.
+      </div>
+    </div>
+
+    <!-- ── ANTIFERTILITY ── -->
+    <div id="antifertility" class="topic">
+      <div class="topic-header">
+        <div class="topic-icon" style="background:rgba(110,231,183,0.15)">🌿</div>
+        <div>
+          <h2>Antifertility Drugs</h2>
+          <p style="color:var(--muted);font-size:0.82rem">Birth control and family planning</p>
+        </div>
+        <div class="tag">Section 16.3.5</div>
+      </div>
+
+      <div class="highlight green">
+        <strong>Birth control pills</strong> contain a mixture of <strong>synthetic estrogen</strong> and <strong>progesterone derivatives</strong> (both hormones). Progesterone suppresses ovulation. Synthetic progesterone derivatives are more potent than natural progesterone.
+      </div>
+
+      <div class="sec-title">Key Antifertility Drugs</div>
+      <div class="drug-grid">
+        <div class="drug-card">
+          <div class="drug-name">Norethindrone</div>
+          <div class="drug-trade">Progesterone derivative</div>
+          <div class="drug-note">Most widely used synthetic progesterone derivative as antifertility drug. Suppresses ovulation.</div>
+        </div>
+        <div class="drug-card">
+          <div class="drug-name">Ethynylestradiol (Novestrol)</div>
+          <div class="drug-trade">Estrogen derivative</div>
+          <div class="drug-note">Used in combination with progesterone derivative (norethindrone) in birth control pills.</div>
+        </div>
+      </div>
+
+      <div class="highlight">
+        <strong>Context:</strong> Antibiotic revolution nearly doubled life expectancy → population explosion → social problems → need for family planning → antifertility drugs.
+      </div>
+    </div>
+
+    <!-- ── SWEETENERS ── -->
+    <div id="sweeteners" class="topic">
+      <div class="topic-header">
+        <div class="topic-icon" style="background:rgba(232,201,125,0.15)">🍬</div>
+        <div>
+          <h2>Artificial Sweetening Agents</h2>
+          <p style="color:var(--muted);font-size:0.82rem">Names and key facts as per syllabus</p>
+        </div>
+        <div class="tag">Section 16.4.1</div>
+      </div>
+
+      <div class="highlight gold">
+        <strong>Why artificial sweeteners?</strong> Natural sweeteners (sucrose) add to calorie intake. Diabetics and calorie-conscious people need alternatives that provide sweetness without calories.
+      </div>
+
+      <div class="sec-title">The Four Artificial Sweeteners</div>
+      <div class="sweet-grid">
+        <div class="sweet-card">
+          <div class="sweet-name">Saccharin</div>
+          <div class="sweet-val">550×</div>
+          <div class="sweet-label">sweeter than cane sugar</div>
+          <div class="sweet-note">First popular artificial sweetener · Discovered 1879 · Ortho-sulphobenzimide · Excreted in urine unchanged · Inert & harmless · Great for diabetics</div>
+        </div>
+        <div class="sweet-card">
+          <div class="sweet-name">Aspartame</div>
+          <div class="sweet-val">100×</div>
+          <div class="sweet-label">sweeter than cane sugar</div>
+          <div class="sweet-note">Most successful & widely used · Methyl ester of dipeptide (aspartic acid + phenylalanine) · Unstable at cooking temperature → <strong>cold foods & soft drinks only</strong></div>
+        </div>
+        <div class="sweet-card">
+          <div class="sweet-name">Sucralose</div>
+          <div class="sweet-val">600×</div>
+          <div class="sweet-label">sweeter than cane sugar</div>
+          <div class="sweet-note">Trichloro derivative of sucrose · Looks and tastes like sugar · Stable at cooking temperature · Does NOT provide calories</div>
+        </div>
+        <div class="sweet-card">
+          <div class="sweet-name">Alitame</div>
+          <div class="sweet-val">2000×</div>
+          <div class="sweet-label">sweeter than cane sugar</div>
+          <div class="sweet-note">High potency · More stable than aspartame · <strong>Problem:</strong> Difficult to control sweetness of food while using it</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SOAPS & DETERGENTS ── -->
+    <div id="cleansing" class="topic">
+      <div class="topic-header">
+        <div class="topic-icon" style="background:rgba(126,184,247,0.15)">🧼</div>
+        <div>
+          <h2>Soaps & Detergents</h2>
+          <p style="color:var(--muted);font-size:0.82rem">Cleansing agents and their chemistry</p>
+        </div>
+        <div class="tag">Section 16.5</div>
+      </div>
+
+      <div class="sec-title">Soaps</div>
+      <div class="highlight">
+        <strong>Soaps</strong> = sodium or potassium salts of long chain fatty acids (stearic, oleic, palmitic acids). Made by <strong>saponification</strong> — heating fat (glyceryl ester of fatty acid) with NaOH or KOH solution.
+      </div>
+
+      <div class="card">
+        <h3>Saponification Reaction</h3>
+        <p style="font-family:'DM Mono',monospace; font-size:0.82rem; color:var(--accent2)">
+          (C₁₇H₃₅COO)₃C₃H₅ + 3NaOH → 3C₁₇H₃₅COONa + C₃H₅(OH)₃<br>
+          <span style="color:var(--muted)">Fat (glyceryl stearate) + Sodium hydroxide → Sodium stearate (soap) + Glycerol</span>
+        </p>
+      </div>
+
+      <div class="soap-molecule">
+        <div class="soap-tail">🔴 Hydrophobic Tail<br><small>Long hydrocarbon chain<br>Repels water, attracts grease/oil</small></div>
+        <div class="soap-div"></div>
+        <div class="soap-head">🔵 Hydrophilic Head<br><small>–COO⁻Na⁺ ionic group<br>Attracts water</small></div>
+      </div>
+
+      <div class="sec-title">Cleansing Action of Soap</div>
+      <div class="flow" style="flex-direction:column; align-items:flex-start">
+        <div class="flow" style="margin-bottom:0.5rem">
+          <div class="flow-step">Soap in water</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">Hydrophobic tails surround oil/grease</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">Hydrophilic heads face water</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">Micelle forms</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">Grease washes away</div>
+        </div>
+      </div>
+
+      <div class="sec-title">Why Soaps Don't Work in Hard Water</div>
+      <div class="card">
+        <h3>Hard Water Problem</h3>
+        <p>Hard water contains Ca²⁺ and Mg²⁺ ions. These react with soap to form <strong>insoluble calcium and magnesium soaps</strong> (scum) — useless for cleaning. The gummy precipitate adheres to cloth fibres and prevents even dye absorption.</p>
+      </div>
+
+      <div class="sec-title">Types of Soaps</div>
+      <div class="info-grid">
+        <div class="card"><h3>Toilet Soaps</h3><p>Better grades of fats/oils, excess alkali removed, colour and perfumes added.</p></div>
+        <div class="card"><h3>Floating Soaps</h3><p>Air bubbles beaten in before hardening.</p></div>
+        <div class="card"><h3>Transparent Soaps</h3><p>Dissolved in ethanol, excess solvent evaporated.</p></div>
+        <div class="card"><h3>Medicated Soaps</h3><p>Medicinal substances added.</p></div>
+        <div class="card"><h3>Shaving Soaps</h3><p>Contain glycerol (prevents drying) + rosin (forms sodium rosinate, lathers well).</p></div>
+        <div class="card"><h3>Laundry Soaps</h3><p>Contain fillers: sodium rosinate, sodium silicate, borax, sodium carbonate.</p></div>
+      </div>
+
+      <div class="sec-title">Synthetic Detergents</div>
+      <div class="highlight green">
+        <strong>Synthetic detergents</strong> have all properties of soaps but contain no soap. They work in <strong>both soft and hard water</strong> — do not form insoluble precipitates with Ca²⁺/Mg²⁺ ions.
+      </div>
+
+      <table class="styled-table">
+        <tr><th>Type</th><th>Description</th><th>Example</th><th>Use</th></tr>
+        <tr>
+          <td><span class="pill pill-gold">Anionic</span></td>
+          <td>Sodium salts of sulphonated long chain alcohols or hydrocarbons. Anionic part does cleansing.</td>
+          <td>Sodium dodecylbenzenesulphonate</td>
+          <td>Household work, toothpastes</td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-purple">Cationic</span></td>
+          <td>Quaternary ammonium salts of amines. Long hydrocarbon chain + positive N. Germicidal properties. Expensive.</td>
+          <td>Cetyltrimethylammonium bromide</td>
+          <td>Hair conditioners, germicides</td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-blue">Non-ionic</span></td>
+          <td>No ions in constitution. Remove grease by micelle formation like soaps.</td>
+          <td>Stearic acid + polyethyleneglycol product</td>
+          <td>Liquid dishwashing detergents</td>
+        </tr>
+      </table>
+
+      <div class="highlight red">
+        <strong>⚠ Environmental Problem:</strong> Highly branched hydrocarbon chains in detergents cannot be degraded by bacteria → accumulate in rivers/ponds → foaming and water pollution. <strong>Solution:</strong> Use unbranched (straight chain) detergents — biodegradable.
+      </div>
+
+      <div class="compare-grid">
+        <div class="compare-box" style="border-color:rgba(232,201,125,0.4)">
+          <h4 style="color:var(--accent)">Soaps</h4>
+          <ul>
+            <li>Na/K salts of fatty acids</li>
+            <li>Don't work in hard water</li>
+            <li>Form scum with Ca²⁺/Mg²⁺</li>
+            <li>Biodegradable</li>
+            <li>Made by saponification</li>
+          </ul>
+        </div>
+        <div class="compare-box" style="border-color:rgba(110,231,183,0.4)">
+          <h4 style="color:var(--accent4)">Synthetic Detergents</h4>
+          <ul>
+            <li>Sulphonated compounds</li>
+            <li>Work in hard water ✓</li>
+            <li>No scum formation</li>
+            <li>Straight chain = biodegradable</li>
+            <li>Branched chain = non-biodegradable</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- content-area -->
+</div><!-- learn page -->
+
+
+<!-- ═══════════════ FLASHCARD PAGE ═══════════════ -->
+<div id="flash" class="page">
+  <div class="hero">
+    <div class="hero-label">Active Recall</div>
+    <h1>Flashcard <span>Practice</span></h1>
+    <p>Click any card to reveal the answer. Test yourself section by section.</p>
+  </div>
+
+  <div class="fc-chapter-nav">
+    <button class="ch-btn active" onclick="showFCTopic('fc-drug-target')">Drug-Target</button>
+    <button class="ch-btn" onclick="showFCTopic('fc-antacids')">Antacids</button>
+    <button class="ch-btn" onclick="showFCTopic('fc-antihistamines')">Antihistamines</button>
+    <button class="ch-btn" onclick="showFCTopic('fc-tranquilizers')">Tranquilizers</button>
+    <button class="ch-btn" onclick="showFCTopic('fc-analgesics')">Analgesics</button>
+    <button class="ch-btn" onclick="showFCTopic('fc-antimicrobials')">Antimicrobials</button>
+    <button class="ch-btn" onclick="showFCTopic('fc-antifertility')">Antifertility</button>
+    <button class="ch-btn" onclick="showFCTopic('fc-sweeteners')">Sweeteners</button>
+    <button class="ch-btn" onclick="showFCTopic('fc-cleansing')">Soaps & Detergents</button>
+  </div>
+
+  <div style="text-align:center; padding:0.75rem 1rem 0; color:var(--muted); font-size:0.82rem;">
+    Click a card to flip it · Click again to flip back
+  </div>
+
+  <!-- DRUG TARGET FLASHCARDS -->
+  <div id="fc-drug-target" class="fc-topic active">
+    <div class="flashcards-grid" id="fg-drug-target"></div>
+  </div>
+
+  <div id="fc-antacids" class="fc-topic">
+    <div class="flashcards-grid" id="fg-antacids"></div>
+  </div>
+
+  <div id="fc-antihistamines" class="fc-topic">
+    <div class="flashcards-grid" id="fg-antihistamines"></div>
+  </div>
+
+  <div id="fc-tranquilizers" class="fc-topic">
+    <div class="flashcards-grid" id="fg-tranquilizers"></div>
+  </div>
+
+  <div id="fc-analgesics" class="fc-topic">
+    <div class="flashcards-grid" id="fg-analgesics"></div>
+  </div>
+
+  <div id="fc-antimicrobials" class="fc-topic">
+    <div class="flashcards-grid" id="fg-antimicrobials"></div>
+  </div>
+
+  <div id="fc-antifertility" class="fc-topic">
+    <div class="flashcards-grid" id="fg-antifertility"></div>
+  </div>
+
+  <div id="fc-sweeteners" class="fc-topic">
+    <div class="flashcards-grid" id="fg-sweeteners"></div>
+  </div>
+
+  <div id="fc-cleansing" class="fc-topic">
+    <div class="flashcards-grid" id="fg-cleansing"></div>
+  </div>
+
+</div><!-- flash page -->
+
+<footer>Chemistry in Everyday Life · Class 12 NCERT · Unit 16 · Study Guide</footer>
+
+<script>
+// ── PAGE SWITCHING ──
+function switchPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── TOPIC SWITCHING ──
+function showTopic(id) {
+  document.querySelectorAll('.topic').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('#learn .ch-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── FC TOPIC SWITCHING ──
+function showFCTopic(id) {
+  document.querySelectorAll('.fc-topic').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('#flash .ch-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── FLASHCARD DATA ──
+const flashData = {
+  'fg-drug-target': [
+    { cat: 'Drug-Target', color: 'pill-gold', q: 'What is the molecular mass range of drugs?', a: '<strong>~100 to 500 u</strong> (low molecular mass chemicals)' },
+    { cat: 'Drug-Target', color: 'pill-gold', q: 'Define chemotherapy.', a: 'Use of chemicals for <strong>therapeutic effect</strong> is called chemotherapy.' },
+    { cat: 'Drug-Target', color: 'pill-gold', q: 'What are drug targets / target molecules?', a: 'Biomolecules such as <strong>carbohydrates, lipids, proteins, and nucleic acids</strong> that drugs interact with.' },
+    { cat: 'Drug-Target', color: 'pill-gold', q: 'What two major functions do enzymes perform in catalysis?', a: '(1) Hold substrate at <strong>active site</strong> in suitable position; (2) Provide <strong>functional groups</strong> to react with substrate.' },
+    { cat: 'Drug-Target', color: 'pill-gold', q: 'What are competitive inhibitors?', a: 'Drugs that <strong>compete with natural substrate</strong> for the active site of the enzyme.' },
+    { cat: 'Drug-Target', color: 'pill-gold', q: 'What are non-competitive inhibitors?', a: 'Drugs that bind to the <strong>allosteric site</strong> (not active site), changing the shape of the active site so substrate cannot fit.' },
+    { cat: 'Drug-Target', color: 'pill-gold', q: 'What happens in irreversible enzyme inhibition?', a: 'Drug forms a <strong>strong covalent bond</strong> with enzyme → permanently blocked → body degrades complex → new enzyme synthesised.' },
+    { cat: 'Drug-Target', color: 'pill-gold', q: 'What are antagonists?', a: 'Drugs that bind to receptor site and <strong>inhibit its natural function</strong> (block the message).' },
+    { cat: 'Drug-Target', color: 'pill-gold', q: 'What are agonists?', a: 'Drugs that <strong>mimic the natural messenger</strong>, switching ON the receptor. Useful when natural messenger is lacking.' },
+    { cat: 'Drug-Target', color: 'pill-gold', q: 'Name the four bases of drug classification.', a: '(1) Pharmacological effect; (2) Drug action; (3) Chemical structure; (4) <strong>Molecular targets</strong> (most useful for medicinal chemists).' },
+    { cat: 'Drug-Target', color: 'pill-gold', q: 'How do receptor proteins transmit messages?', a: 'Chemical messenger binds to receptor → receptor shape changes → message transferred into cell. Messenger gives message <strong>without entering the cell</strong>.' },
+  ],
+  'fg-antacids': [
+    { cat: 'Antacids', color: 'pill-blue', q: 'What causes hyperacidity and ulcers?', a: '<strong>Overproduction of acid</strong> (pepsin + HCl) in stomach, stimulated by histamine.' },
+    { cat: 'Antacids', color: 'pill-blue', q: 'Why is NaHCO₃ not an ideal antacid?', a: 'Excessive use makes stomach <strong>alkaline</strong>, triggering production of <em>even more</em> acid.' },
+    { cat: 'Antacids', color: 'pill-blue', q: 'Why are metal hydroxides better than NaHCO₃?', a: 'Insoluble → do not raise pH above <strong>neutrality</strong>. But still treat only symptoms, not the cause.' },
+    { cat: 'Antacids', color: 'pill-blue', q: 'What was the breakthrough in hyperacidity treatment?', a: 'Discovery that <strong>histamine stimulates</strong> pepsin and HCl secretion in stomach → drugs designed to block histamine receptors.' },
+    { cat: 'Antacids', color: 'pill-blue', q: 'Name and trade name of the first histamine-receptor blocking antacid.', a: '<strong>Cimetidine</strong> (Tegamet) — was the world\'s largest-selling drug.' },
+    { cat: 'Antacids', color: 'pill-blue', q: 'What is ranitidine\'s trade name?', a: '<strong>Zantac</strong> — discovered after cimetidine, became even more popular.' },
+    { cat: 'Antacids', color: 'pill-blue', q: 'Why don\'t antacid drugs affect allergies?', a: 'Antiallergic and antacid drugs work on <strong>different histamine receptors</strong> (H₁ vs H₂).' },
+  ],
+  'fg-antihistamines': [
+    { cat: 'Antihistamines', color: 'pill-purple', q: 'What are the functions of histamine in the body?', a: 'Vasodilator · contracts smooth muscles (bronchi, gut) · relaxes fine blood vessel walls · causes <strong>nasal congestion</strong> and allergic response to pollen.' },
+    { cat: 'Antihistamines', color: 'pill-purple', q: 'Mechanism of antihistamines?', a: 'Compete with histamine for <strong>receptor binding sites</strong> where histamine exerts its effect (competitive antagonism).' },
+    { cat: 'Antihistamines', color: 'pill-purple', q: 'Name two synthetic antihistamines and their trade names.', a: '<strong>Brompheniramine</strong> (Dimetapp) and <strong>Terfenadine</strong> (Seldane).' },
+    { cat: 'Antihistamines', color: 'pill-purple', q: 'Why don\'t antihistamines reduce stomach acid?', a: 'Antiallergic antihistamines work on <strong>H₁ receptors</strong>; stomach acid is controlled by <strong>H₂ receptors</strong> — different receptors.' },
+  ],
+  'fg-tranquilizers': [
+    { cat: 'Tranquilizers', color: 'pill-green', q: 'What are tranquilizers used for?', a: 'Treatment of <strong>stress, anxiety, irritability, mental diseases</strong>. Induce sense of well-being. Component of sleeping pills.' },
+    { cat: 'Tranquilizers', color: 'pill-green', q: 'What neurotransmitter is involved in depression?', a: '<strong>Noradrenaline</strong> — low levels reduce signal-sending → depression.' },
+    { cat: 'Tranquilizers', color: 'pill-green', q: 'How do antidepressant drugs work?', a: 'Inhibit enzymes that degrade noradrenaline → it is slowly metabolised → activates receptors longer → counteracts depression.' },
+    { cat: 'Tranquilizers', color: 'pill-green', q: 'Name two antidepressant drugs.', a: '<strong>Iproniazid</strong> and <strong>Phenelzine (Nardil)</strong>.' },
+    { cat: 'Tranquilizers', color: 'pill-green', q: 'Name two mild tranquilizers.', a: '<strong>Chlordiazepoxide</strong> and <strong>Meprobamate</strong> — suitable for relieving tension.' },
+    { cat: 'Tranquilizers', color: 'pill-green', q: 'What is Equanil used for?', a: 'Controlling <strong>depression and hypertension</strong>.' },
+    { cat: 'Tranquilizers', color: 'pill-green', q: 'What are barbiturates? Give examples.', a: 'Derivatives of barbituric acid. Hypnotic (sleep-producing). Examples: <strong>Veronal, Amytal, Nembutal, Luminal, Seconal</strong>.' },
+    { cat: 'Tranquilizers', color: 'pill-green', q: 'Name two other tranquilizer substances.', a: '<strong>Valium</strong> and <strong>Serotonin</strong>.' },
+  ],
+  'fg-analgesics': [
+    { cat: 'Analgesics', color: 'pill-red', q: 'What do analgesics do?', a: 'Reduce or abolish pain <strong>without</strong> causing impairment of consciousness, confusion, incoordination, or paralysis.' },
+    { cat: 'Analgesics', color: 'pill-red', q: 'What are the two classes of analgesics?', a: '(1) <strong>Non-narcotic (non-addictive)</strong>; (2) <strong>Narcotic</strong> analgesics.' },
+    { cat: 'Analgesics', color: 'pill-red', q: 'Mechanism of Aspirin?', a: 'Inhibits synthesis of <strong>prostaglandins</strong> (chemicals that stimulate inflammation and cause pain).' },
+    { cat: 'Analgesics', color: 'pill-red', q: 'What extra effects does aspirin have?', a: '<strong>Antipyretic</strong> (reduces fever) and prevents <strong>platelet coagulation</strong> → used in heart attack prevention.' },
+    { cat: 'Analgesics', color: 'pill-red', q: 'Name two non-narcotic analgesics.', a: '<strong>Aspirin</strong> and <strong>Paracetamol</strong>.' },
+    { cat: 'Analgesics', color: 'pill-red', q: 'What are narcotic analgesics? Source?', a: 'Morphine and homologues — obtained from <strong>opium poppy</strong>. Relieve pain and produce sleep in medicinal doses.' },
+    { cat: 'Analgesics', color: 'pill-red', q: 'What are the uses of narcotic analgesics?', a: 'Relief of <strong>postoperative pain, cardiac pain, terminal cancer pain,</strong> and in <strong>childbirth</strong>.' },
+    { cat: 'Analgesics', color: 'pill-red', q: 'Name three narcotic analgesics (opiates).', a: '<strong>Morphine, Heroin, Codeine</strong>.' },
+  ],
+  'fg-antimicrobials': [
+    { cat: 'Antimicrobials', color: 'pill-blue', q: 'Modern definition of an antibiotic?', a: 'Substance produced wholly/partly by chemical synthesis that in <strong>low concentrations</strong> inhibits growth or destroys microorganisms by intervening in metabolic processes.' },
+    { cat: 'Antimicrobials', color: 'pill-blue', q: 'Who discovered salvarsan and when did they get the Nobel Prize?', a: '<strong>Paul Ehrlich</strong> — Nobel Prize in Medicine <strong>1908</strong>. First effective treatment for syphilis.' },
+    { cat: 'Antimicrobials', color: 'pill-blue', q: 'What is prontosil metabolised to in the body?', a: '<strong>Sulphanilamide</strong> — the real active compound, leading to discovery of sulpha drugs.' },
+    { cat: 'Antimicrobials', color: 'pill-blue', q: 'Who discovered penicillin and when?', a: '<strong>Alexander Fleming</strong> in <strong>1929</strong> — antibacterial properties of Penicillium fungus.' },
+    { cat: 'Antimicrobials', color: 'pill-blue', q: 'Bactericidal vs Bacteriostatic — what\'s the difference?', a: '<strong>Bactericidal</strong> = kills bacteria (Penicillin, Aminoglycosides, Ofloxacin). <strong>Bacteriostatic</strong> = inhibits growth (Erythromycin, Tetracycline, Chloramphenicol).' },
+    { cat: 'Antimicrobials', color: 'pill-blue', q: 'What are broad spectrum antibiotics? Examples?', a: 'Kill/inhibit wide range of Gram +ve and Gram –ve bacteria. Examples: <strong>Ampicillin, Amoxycillin, Chloramphenicol, Vancomycin, Ofloxacin</strong>.' },
+    { cat: 'Antimicrobials', color: 'pill-blue', q: 'Penicillin G has what kind of spectrum?', a: '<strong>Narrow spectrum</strong>. Ampicillin and Amoxycillin (synthetic modifications) have broad spectrum.' },
+    { cat: 'Antimicrobials', color: 'pill-blue', q: 'Uses of Chloramphenicol?', a: 'Broad spectrum. Oral use for: <strong>typhoid, dysentery, acute fever, urinary infections, meningitis, pneumonia</strong>.' },
+    { cat: 'Antimicrobials', color: 'pill-blue', q: 'Antiseptics vs Disinfectants — key difference?', a: 'Antiseptics: applied to <strong>living tissues</strong>. Disinfectants: applied to <strong>inanimate objects</strong>.' },
+    { cat: 'Antimicrobials', color: 'pill-blue', q: 'What is dettol made of?', a: '<strong>Chloroxylenol + Terpineol</strong>.' },
+    { cat: 'Antimicrobials', color: 'pill-blue', q: 'What is tincture of iodine?', a: '<strong>2–3% iodine</strong> in alcohol-water mixture. Applied on wounds.' },
+    { cat: 'Antimicrobials', color: 'pill-blue', q: 'Phenol as antiseptic vs disinfectant — concentration?', a: '<strong>0.2% phenol = antiseptic</strong>; <strong>1% phenol = disinfectant</strong>.' },
+    { cat: 'Antimicrobials', color: 'pill-blue', q: 'Chlorine concentration as disinfectant?', a: '<strong>0.2–0.4 ppm</strong> in aqueous solution.' },
+  ],
+  'fg-antifertility': [
+    { cat: 'Antifertility', color: 'pill-green', q: 'What do birth control pills contain?', a: 'Mixture of <strong>synthetic estrogen</strong> and <strong>progesterone derivatives</strong>.' },
+    { cat: 'Antifertility', color: 'pill-green', q: 'How do antifertility drugs work?', a: '<strong>Progesterone suppresses ovulation</strong>. Synthetic derivatives are more potent than natural progesterone.' },
+    { cat: 'Antifertility', color: 'pill-green', q: 'Name the most widely used synthetic progesterone antifertility drug.', a: '<strong>Norethindrone</strong>.' },
+    { cat: 'Antifertility', color: 'pill-green', q: 'What estrogen derivative is combined with progesterone derivative?', a: '<strong>Ethynylestradiol (Novestrol)</strong>.' },
+  ],
+  'fg-sweeteners': [
+    { cat: 'Sweeteners', color: 'pill-gold', q: 'Name of the first artificial sweetener and its discovery year?', a: '<strong>Saccharin</strong> (ortho-sulphobenzimide) — discovered <strong>1879</strong>.' },
+    { cat: 'Sweeteners', color: 'pill-gold', q: 'Saccharin — how many times sweeter than sugar?', a: '<strong>550 times</strong>. Excreted unchanged in urine. Inert and harmless. Great for diabetics.' },
+    { cat: 'Sweeteners', color: 'pill-gold', q: 'Aspartame — sweetness and chemical nature?', a: '<strong>100 times</strong> sweeter. Methyl ester of dipeptide (aspartic acid + phenylalanine).' },
+    { cat: 'Sweeteners', color: 'pill-gold', q: 'Why is aspartame limited to cold foods?', a: 'It is <strong>unstable at cooking temperature</strong>.' },
+    { cat: 'Sweeteners', color: 'pill-gold', q: 'Sucralose — sweetness, chemical nature, properties?', a: '<strong>600 times</strong> sweeter. Trichloro derivative of sucrose. Stable at cooking temp. <strong>No calories</strong>.' },
+    { cat: 'Sweeteners', color: 'pill-gold', q: 'Alitame — sweetness and its problem?', a: '<strong>2000 times</strong> sweeter. Problem: <strong>Difficult to control sweetness</strong> of food while using it.' },
+    { cat: 'Sweeteners', color: 'pill-gold', q: 'Most successful and widely used artificial sweetener?', a: '<strong>Aspartame</strong> — used in cold foods and soft drinks.' },
+    { cat: 'Sweeteners', color: 'pill-gold', q: 'Which sweetener is most stable at high temperatures?', a: '<strong>Sucralose</strong> — stable at cooking temperature.' },
+  ],
+  'fg-cleansing': [
+    { cat: 'Soaps & Detergents', color: 'pill-blue', q: 'What are soaps chemically?', a: '<strong>Sodium or potassium salts</strong> of long chain fatty acids (stearic, oleic, palmitic).' },
+    { cat: 'Soaps & Detergents', color: 'pill-blue', q: 'What is saponification?', a: 'Reaction of fat (glyceryl ester) with NaOH/KOH solution to produce soap + glycerol.' },
+    { cat: 'Soaps & Detergents', color: 'pill-blue', q: 'Describe the cleansing action of soap.', a: 'Soap forms <strong>micelles</strong> — hydrophobic tails surround oil/grease, hydrophilic heads face water → grease lifted away.' },
+    { cat: 'Soaps & Detergents', color: 'pill-blue', q: 'Why don\'t soaps work in hard water?', a: 'Ca²⁺/Mg²⁺ ions react with soap to form <strong>insoluble calcium/magnesium soaps (scum)</strong> — useless for cleaning.' },
+    { cat: 'Soaps & Detergents', color: 'pill-blue', q: 'What are synthetic detergents? Advantage over soap?', a: 'Cleansing agents without soap. Work in <strong>both soft and hard water</strong> — no scum with Ca²⁺/Mg²⁺.' },
+    { cat: 'Soaps & Detergents', color: 'pill-blue', q: 'What are anionic detergents? Example?', a: 'Sodium salts of sulphonated long chain alcohols/hydrocarbons. Example: <strong>Sodium dodecylbenzenesulphonate</strong>. Used in household work, toothpastes.' },
+    { cat: 'Soaps & Detergents', color: 'pill-blue', q: 'What are cationic detergents? Example?', a: 'Quaternary ammonium salts with long hydrocarbon chain and positive N. Example: <strong>Cetyltrimethylammonium bromide</strong>. Used in hair conditioners. Germicidal.' },
+    { cat: 'Soaps & Detergents', color: 'pill-blue', q: 'What are non-ionic detergents? Example?', a: 'No ions in constitution. Example: <strong>stearic acid + polyethyleneglycol</strong> product. Used in liquid dishwashing detergents.' },
+    { cat: 'Soaps & Detergents', color: 'pill-blue', q: 'Why are branched chain detergents harmful?', a: 'Bacteria <strong>cannot degrade</strong> branched chains → accumulate in rivers/ponds → foaming and water pollution.' },
+    { cat: 'Soaps & Detergents', color: 'pill-blue', q: 'What makes a detergent biodegradable?', a: '<strong>Unbranched (straight chain)</strong> hydrocarbon chains can be biodegraded by bacteria.' },
+    { cat: 'Soaps & Detergents', color: 'pill-blue', q: 'What is added to shaving soaps and why?', a: '<strong>Glycerol</strong> (prevents rapid drying) and <strong>rosin</strong> (forms sodium rosinate, lathers well).' },
+    { cat: 'Soaps & Detergents', color: 'pill-blue', q: 'What is bithionol?', a: 'A compound added to <strong>soaps to impart antiseptic properties</strong>.' },
+  ],
+};
+
+// ── RENDER FLASHCARDS ──
+function buildFC(gridId, cards) {
+  const container = document.getElementById(gridId);
+  if (!container) return;
+  container.innerHTML = '';
+  cards.forEach((c, i) => {
+    const div = document.createElement('div');
+    div.className = 'fc-card';
+    div.innerHTML = `
+      <div class="fc-inner">
+        <div class="fc-front">
+          <div class="fc-cat pill ${c.color}">${c.cat}</div>
+          <div class="fc-q">${c.q}</div>
+          <div class="fc-hint">Tap to reveal answer</div>
+        </div>
+        <div class="fc-back">
+          <div class="fc-cat pill ${c.color}">${c.cat}</div>
+          <div class="fc-a">${c.a}</div>
+        </div>
+      </div>
+    `;
+    div.addEventListener('click', () => div.classList.toggle('flipped'));
+    container.appendChild(div);
+  });
+}
+
+// Build all flashcard sections
+Object.entries(flashData).forEach(([gridId, cards]) => buildFC(gridId, cards));
+</script>
+</body>
+</html>
